@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: url('galaxie.png') no-repeat center center;
+  background-size: contain;
+  background-color: black;
+  position: relative;
+}
+
+.system {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ff6600;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 6px #fff;
+  transition: transform 0.2s;
+}
+
+.system:hover {
+  transform: scale(1.5);
+}
+
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+  min-width: 220px;
+  pointer-events: none;
+  z-index: 100;
+}
