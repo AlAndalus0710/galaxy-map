@@ -2,12 +2,82 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Carte Galactique</title>
-  <link rel="stylesheet" href="carte.css">
+  <title>Carte Galactique Interactive</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    #carte {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('img_1.webp') no-repeat center center;
+      background-size: contain;
+    }
+    .object {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 8px #fff;
+      background-color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+    }
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+      z-index: 1000;
+      max-width: 200px;
+    }
+  </style>
 </head>
 <body>
+  <div id="carte"></div>
   <div class="tooltip" id="tooltip"></div>
 
-  <script src="carte.js"></script>
+  <script>
+    const objects = [
+      // Nom, x, y (en pixels depuis le coin supérieur gauche), type, infos
+      { name: "LUX CAELI", x: 440, y: 200, type: "Soleil", info: "Système central lumineux de la zone Lux." },
+      { name: "UMBRAE TENEBRIS", x: 720, y: 540, type: "Soleil", info: "Étoile sombre du secteur Umbrae." },
+      { name: "Mallundra TM", x: 430, y: 320, type: "Trou noir", info: "Trou noir actif détecté." },
+      { name: "Wormhore TM", x: 390, y: 460, type: "Trou noir", info: "Instable – Éviter le passage." },
+      { name: "Occasus", x: 520, y: 520, type: "Planète", info: "Planète riche en ressources organiques." },
+      { name: "Ordon", x: 820, y: 410, type: "Planète", info: "Avant-poste militaire." },
+      { name: "Fulmen", x: 320, y: 150, type: "Planète", info: "Activité électrique constante." },
+      { name: "Navis", x: 640, y: 150, type: "Planète", info: "Colonie marchande." }
+      // ➕ Ajoute ici d'autres planètes/objets avec leurs coordonnées
+    ];
+
+    const carte = document.getElementById('carte');
+    const tooltip = document.getElementById('tooltip');
+
+    objects.forEach(obj => {
+      const el = document.createElement('div');
+      el.className = 'object';
+      el.style.left = `${obj.x}px`;
+      el.style.top = `${obj.y}px`;
+
+      el.addEventListener('click', () => {
+        tooltip.style.left = `${obj.x + 30}px`;
+        tooltip.style.top = `${obj.y}px`;
+        tooltip.innerHTML = `<strong>${obj.name}</strong><br><em>${obj.type}</em><br>${obj.info}`;
+        tooltip.style.display = 'block';
+      });
+
+      el.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+
+      carte.appendChild(el);
+    });
+  </script>
 </body>
 </html>
